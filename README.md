@@ -1,12 +1,23 @@
 # PSI MCP × Claude Code — Next.js Core Web Vitals 改善サンプル
 
-Zenn 記事「PSI MCP × Claude Code で Core Web Vitals を改善する」の実装サンプルです。
+Zenn 記事「PSI MCP × Claude Code で Core Web Vitals を改善する」の実装サンプル。
 
-## ブラウザで Before/After を見るショーケース
+記事: https://zenn.dev/liatris/articles/20260709-nextjs-psi-with-claude
 
-GitHub Pages: <https://liatris000.github.io/liatris-20260430-nextjs-psi-mcp/>
+このリポジトリは、単体で起動する Next.js アプリではない。改善前後のコード例(`components/` / `app/`)と、PSI MCP の設定テンプレート(`.claude/mcp.json`)を、自分の Next.js プロジェクトに写して使う形になっている。
 
-`index.html` 1 枚で 4 つの改善を Before/After のコード比較として並べたページです。構成:
+## 前提
+
+- Claude Code
+- Node.js(`npx` で PSI MCP サーバーを起動するため)
+- Google Cloud の PageSpeed Insights API キー
+- 改善例を当てる先の、自分の Next.js(App Router)プロジェクト
+
+## ブラウザで Before/After を見る
+
+GitHub Pages: <https://liatris000.github.io/liatris-20260709-nextjs-psi-mcp/>
+
+`index.html` 1 枚に、4 つの改善の Before/After と、MCP の設定例を並べている。
 
 1. ヒーロー画像 (LCP) — `<img>` → `next/image` + `priority` + `sizes`
 2. フォント (FCP / LCP) — Google Fonts `<link>` → `next/font`
@@ -14,7 +25,14 @@ GitHub Pages: <https://liatris000.github.io/liatris-20260430-nextjs-psi-mcp/>
 4. Tailwind CSS の purge (Speed Index) — `content` パス更新
 5. `.claude/mcp.json` 設定例 (コピーボタン付き)
 
-## セットアップ
+手元で開く場合は、clone して `index.html` をブラウザで開く。
+
+```bash
+git clone https://github.com/liatris000/liatris-20260709-nextjs-psi-mcp.git
+open liatris-20260709-nextjs-psi-mcp/index.html   # macOS。Linux なら xdg-open
+```
+
+## 動かし方(自分の Next.js プロジェクトで計測する)
 
 ### 1. Google Cloud API キーを発行
 
@@ -24,7 +42,7 @@ GitHub Pages: <https://liatris000.github.io/liatris-20260430-nextjs-psi-mcp/>
 
 ### 2. MCP 設定をプロジェクトに追加
 
-`.claude/mcp.json` を Next.js プロジェクトルートに配置し、API キーを設定:
+このリポジトリの `.claude/mcp.json` を Next.js プロジェクトのルートに置き、API キーを設定する:
 
 ```json
 {
@@ -40,9 +58,9 @@ GitHub Pages: <https://liatris000.github.io/liatris-20260430-nextjs-psi-mcp/>
 }
 ```
 
-Claude Code を再起動すると `pagespeed` ツールが有効になります。
+Claude Code を再起動すると `pagespeed` ツールが有効になる。
 
-### 3. 使い方
+### 3. 計測と改善
 
 Claude Code のチャットで:
 
@@ -51,12 +69,23 @@ Claude Code のチャットで:
 https://your-site.com
 ```
 
-結果の Opportunities を確認したら、影響が大きい1項目を選んで修正 → 再計測のループを回します。
+結果の Opportunities から、影響が大きい 1 項目を選んで修正 → 再計測、のループを回す。
+
+## 期待される出力
+
+PSI MCP からは、LCP / INP / CLS / FCP / TTFB / TBT と Performance スコアが返る。数値は計測対象のサイトと計測のたびのぶれで変わるので、このリポジトリには固定の出力例を置いていない。
+
+## 確かめていない範囲
+
+- このリポジトリには、PSI の実測結果(改善前後のスコア)を置いていない
+- `components/` / `app/` のコードは断片で、このリポジトリ単体ではビルドしない(`package.json` が無い)
+- PSI MCP サーバー(`pagespeed-insights-mcp`)の挙動は、記事執筆時点のもの
 
 ## ファイル構成
 
 | ファイル | 説明 |
 |---|---|
+| `index.html` | Before/After を並べたショーケース(GitHub Pages) |
 | `.claude/mcp.json` | PSI MCP サーバー設定テンプレート |
 | `components/HeroSection.tsx` | `next/image` + `priority` + `sizes` による LCP 改善例 |
 | `app/layout.tsx` | `next/font` + `lazyOnload` Script による FCP・TBT 改善例 |
@@ -69,3 +98,7 @@ https://your-site.com
 - [next/image](https://nextjs.org/docs/app/api-reference/components/image)
 - [next/font](https://nextjs.org/docs/app/api-reference/components/font)
 - [next/script](https://nextjs.org/docs/app/api-reference/components/script)
+
+## ライセンス
+
+MIT
