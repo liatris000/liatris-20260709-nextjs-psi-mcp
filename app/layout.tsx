@@ -1,8 +1,8 @@
 import { Noto_Sans_JP } from 'next/font/google'
 import Script from 'next/script'
 
-// Before: Google Fonts via <link> in _document → render-blocking
-// After: next/font self-hosting + lazyOnload for third-party scripts
+// 変更前: Google Fonts を _document の <link> で読み込み、描画をブロックしていた
+// 変更後: next/font でフォントを自前で配信し、サードパーティのスクリプトは lazyOnload で読み込む
 
 const notoSans = Noto_Sans_JP({
   subsets: ['latin'],
