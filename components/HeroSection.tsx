@@ -1,7 +1,7 @@
 import Image from 'next/image'
 
-// Before: <img src="/hero.jpg" alt="hero" style={{ width: '100%' }} />
-// After: next/image with priority + sizes for LCP optimization
+// 変更前: <img src="/hero.jpg" alt="hero" style={{ width: '100%' }} />
+// 変更後: LCP を改善するため、next/image に priority と sizes を付ける
 
 export function HeroSection() {
   return (

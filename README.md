@@ -32,7 +32,9 @@ git clone https://github.com/liatris000/liatris-20260709-nextjs-psi-mcp.git
 open liatris-20260709-nextjs-psi-mcp/index.html   # macOS。Linux なら xdg-open
 ```
 
-## 動かし方(自分の Next.js プロジェクトで計測する)
+## 動かし方
+
+自分の Next.js プロジェクトで計測する。
 
 ### 1. Google Cloud API キーを発行
 
@@ -98,6 +100,10 @@ PSI MCP からは、LCP / INP / CLS / FCP / TTFB / TBT と Performance スコア
 - [next/image](https://nextjs.org/docs/app/api-reference/components/image)
 - [next/font](https://nextjs.org/docs/app/api-reference/components/font)
 - [next/script](https://nextjs.org/docs/app/api-reference/components/script)
+
+## 記事
+
+https://zenn.dev/liatris/articles/20260709-nextjs-psi-with-claude
 
 ## ライセンス
 
